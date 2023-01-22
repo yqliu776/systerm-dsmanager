@@ -1,0 +1,19 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block title %}
+    Manage-index
+{% endblock %}
+
+{% block linkcsript %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/index_admin.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="index">
+        <a href="{{ url_for('admin.login') }}">
+            <h1>
+                index_admin --> login_admin
+            </h1>
+        </a>
+    </div>
+{% endblock %}

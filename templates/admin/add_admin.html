@@ -1,0 +1,40 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+    Add administrator
+{% endblock %}
+
+{% block linkcsript %}
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/admin/add_admin.css") }}">
+{% endblock %}
+
+{% block content %}
+    <div class="add_admin_box">
+
+        <form method="POST">
+
+            <label for="adminname">
+                <input type="text" name="adminname" placeholder="Please enter admin name">
+            </label>
+
+            <label for="password">
+                <input type="password" name="password" placeholder="Please enter password">
+            </label>
+
+            <label for="Permission">
+                <input type="text" list="Per_list" name="Permission" placeholder="Please set permissions">
+                <datalist id="Per_list">
+                    <option value="SuperRoot"></option>
+                    <option value="NormalAdmin"></option>
+                    <option value="Observer"></option>
+                </datalist>
+            </label>
+
+            <span style="color: greenyellow">{{ feedback }}</span>
+            <span style="color: red">{{ error }}</span>
+
+            <input type="submit" value="submit">
+        </form>
+
+    </div>
+{% endblock %}

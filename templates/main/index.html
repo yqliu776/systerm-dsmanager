@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}
+    Manage-index
+{% endblock %}
+
+{% block linkcsript %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/index_admin.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="index">
+        <a href="{{ url_for('debug.debug') }}">
+            <h1>
+                index
+            </h1>
+        </a>
+    </div>
+{% endblock %}

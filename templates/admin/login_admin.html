@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login for admin</title>
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/admin/login_admin.css") }}">
+</head>
+<body>
+<div class="login_box">
+    <form method="POST">
+
+        <h2>Login-Admin</h2>
+
+        <div class="item">
+                <input type="text" required name="adminname" placeholder="Please enter an administrator account!">
+            <label for="">UserName</label>
+        </div>
+
+        <div class="item">
+                <input type="password" required name="password" placeholder="Please enter the administrator password!">
+            <label for="">Password</label>
+        </div>
+        <span class="error">
+            {{ error }}
+        </span>
+        <input class="btn" type="submit" value="login">
+
+    </form>
+</div>
+</body>
+</html>
