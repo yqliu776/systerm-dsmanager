@@ -6,3 +6,23 @@
 a {
     text-decoration: none;
 }
+
+li {
+    text-decoration: none;
+}
+
+header {
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: #03e9f4;
+}
+
+.btn-header {
+    display: inline-block;
+    font-size: large;
+    margin-top: 15px;
+    margin-left: 100px;
+    height: 100%;
+    width: 80px;
+}
