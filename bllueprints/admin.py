@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for
+from flask import Blueprint, render_template, request, session, redirect, url_for, jsonify
 from models import AdminModel
 from forms import AdminLoginForm, AdminAddForm
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -10,7 +10,12 @@ bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 @bp.route('/')
 def index():
-    return render_template('admin/index_admin.html')
+    if 'admin_id' in session:
+        is_logged_in = True
+    else:
+        is_logged_in = False
+
+    return render_template('admin/index_admin.html', is_logged_in=is_logged_in)
 
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -44,29 +49,37 @@ def login():
             return render_template('admin/login_admin.html', error=error)
 
 
+# 定义一个蓝图路由，用于添加管理员
 @bp.route('/add_admin', methods=['GET', 'POST'])
 def add_admin():
     """
     Add an administrator
     :return:
     """
+    # 如果是 GET 请求，则返回添加管理员的页面
     if request.method == 'GET':
         return render_template('admin/add_admin.html')
     else:
+        # 如果用户权限不足，则返回错误页面
         if session.get('permission') != 0:
             error = 'PermissionError: The permissions are insufficient, please contact the super administrator'
             return render_template('admin/add_admin.html', error=error)
         else:
+            # 获取管理员添加表单，并验证表单格式是否正确
             form = AdminAddForm(request.form)
             if form.validate():
+                # 获取管理员的姓名、密码和权限等信息
                 adminname = form.adminname.data
                 password = form.password.data
                 permission = form.Permission.data
+                # 查询数据库中是否已经存在该管理员
                 scalar = db.session.query(exists().where(AdminModel.adminname == adminname))
                 if scalar.scalar():
+                    # 如果已经存在该管理员，则返回错误页面
                     error = 'NameError: This administrator already exists！'
                     return render_template('admin/add_admin.html', error=error)
                 else:
+                    # 根据权限字符串转化为数字
                     match permission:
                         case "SuperRoot":
                             permission = 0
@@ -75,18 +88,24 @@ def add_admin():
                         case "Observer":
                             permission = 2
                         case _:
+                            # 如果没有选择管理员权限，则返回错误页面
                             error = 'PermissionError: Please select an administrator privilege level！'
                             return render_template('admin/add_admin.html', error=error)
 
+                    # 对密码进行加密处理
                     hash_pwd = generate_password_hash(password)
+                    # 创建管理员对象，并将其添加到数据库中
                     admin = AdminModel(adminname=adminname, password=hash_pwd, permission=permission)
                     db.session.add(admin)
                     db.session.commit()
+                    # 添加成功，返回反馈信息
                     feedback = 'Added successfully！'
                     return render_template('admin/add_admin.html', feedback=feedback)
             else:
+                # 如果表单格式不正确，则返回错误页面
                 error = 'FormatError: The account or password format is incorrect！ '
                 return render_template('admin/add_admin.html', error=error)
+
 
 
 @bp.route('/pop_admin', methods=['GET', 'POST'])

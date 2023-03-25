@@ -9,11 +9,22 @@
 {% endblock %}
 
 {% block content %}
-    <div class="index">
-        <a href="{{ url_for('admin.login') }}">
-            <h1>
-                index_admin --> login_admin
-            </h1>
-        </a>
+    {% if is_logged_in == True %}
+    <div id="main-content">
+    <h2>Administrator Home</h2>
+    <div id="login-status"></div>
     </div>
+    {% elif is_logged_in == False %}
+    <div class="text-center">
+        <h2 class="mb-4">Welcome to the Admin Panel</h2>
+        <p>Access the admin panel using your credentials.</p>
+        <a href="{{ url_for('admin.login') }}" class="btn btn-primary">Go to Login</a>
+    </div>
+    {% else %}
+    <div id="main-content">
+    <h2>Error</h2>
+    <div id="login-status"></div>
+
+    </div>
+    {% endif %}
 {% endblock %}
