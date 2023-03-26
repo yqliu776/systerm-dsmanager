@@ -1,2 +1,2 @@
 # systerm-dsmanager
-毕业设计
+电商管理系统，欢迎给出您的代码
