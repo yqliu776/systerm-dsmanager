@@ -22,6 +22,13 @@ class AdminModel(db.Model):
         self.password = password
         self.permission = permission
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.adminname,
+            'permission': self.permission
+        }
+
     def __repr__(self):
         return '<User %s>' % self.adminname
 

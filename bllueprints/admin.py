@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, session, redirect, url_for
 from models import AdminModel
 from forms import AdminLoginForm, AdminAddForm
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -49,7 +49,6 @@ def login():
             return render_template('admin/login_admin.html', error=error)
 
 
-# 定义一个蓝图路由，用于添加管理员
 @bp.route('/add_admin', methods=['GET', 'POST'])
 def add_admin():
     """
@@ -107,7 +106,6 @@ def add_admin():
                 return render_template('admin/add_admin.html', error=error)
 
 
-
-@bp.route('/pop_admin', methods=['GET', 'POST'])
-def pop_admin():
-    pass
+@bp.route('/manage_admin', methods=['GET'])
+def manage_admin():
+    return render_template('admin/manage_admin.html')

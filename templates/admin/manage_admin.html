@@ -1,0 +1,80 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}
+    管理员列表
+{% endblock %}
+
+{% block linkcsript %}
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/admin/add_admin.css") }}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>所有管理员</h1>
+    <button id="add-admin-button" class="btn btn-primary">添加管理员</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Permission Level</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="admin-table-body">
+            <!-- 管理员账户信息将通过 JavaScript 动态添加到这里 -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const adminTableBody = document.getElementById('admin-table-body');
+    const addAdminButton = document.getElementById('add-admin-button');
+
+    // 获取所有管理员账户信息并显示在表格中
+    fetch('/api/admins')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(admin => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${admin.id}</td>
+                    <td>${admin.username}</td>
+                    <td>${admin.permission}</td>
+                    <td>
+                        <button class="btn btn-danger delete-admin-button" data-id="${admin.id}">Delete</button>
+                    </td>
+                `;
+                adminTableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error(error));
+
+    // 添加管理员账户按钮点击事件
+    addAdminButton.addEventListener('click', () => {
+        window.location.href = '/admin/add_admin';
+    });
+
+    // 删除管理员账户
+        adminTableBody.addEventListener('click', event => {
+        if (event.target.classList.contains('delete-admin-button')) {
+            const id = event.target.dataset.id;
+            fetch(`/api/admins/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to delete admin.');
+                }
+            })
+            .then(data => {
+                alert(data.message);
+                location.reload();
+            })
+            .catch(error => console.error(error));
+        }
+    });
+</script>
+{% endblock %}
