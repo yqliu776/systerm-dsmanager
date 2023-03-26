@@ -55,10 +55,12 @@
         </div>
             <!-- 主要内容 -->
             <div class="col-md-9 col-lg-10">
-                <div class="content h-100 d-flex flex-column justify-content-center align-items-center">
-                    {% block content %}
+                <div class="content h-100">
+                    <div class="inner-content">
+                        {% block content %}
 
-                    {% endblock %}
+                        {% endblock %}
+                    </div>
                 </div>
             </div>
         </div>
