@@ -54,11 +54,18 @@
     addAdminButton.addEventListener('click', () => {
         window.location.href = '/admin/add_admin';
     });
-
     // 删除管理员账户
-        adminTableBody.addEventListener('click', event => {
-        if (event.target.classList.contains('delete-admin-button')) {
-            const id = event.target.dataset.id;
+    adminTableBody.addEventListener('click', event => {
+    if (event.target.classList.contains('delete-admin-button')) {
+        const id = event.target.dataset.id;
+        const permission = {{ session.get('permission') }};
+        console.log(permission)
+        if (permission > 0) {
+            alert('You do not have permission to delete admins.');
+            return;
+        }
+        const confirmMessage = 'Are you sure you want to delete this admin?';
+        if (window.confirm(confirmMessage)) {
             fetch(`/api/admins/${id}`, {
                 method: 'DELETE'
             })
@@ -75,6 +82,7 @@
             })
             .catch(error => console.error(error));
         }
-    });
+    }
+});
 </script>
 {% endblock %}

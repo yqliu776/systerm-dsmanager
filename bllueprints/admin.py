@@ -39,6 +39,7 @@ def login():
                 # print(generate_password_hash(password))
                 if admin and check_password_hash(admin.password, password):
                     session['admin_id'] = admin.id
+                    session['name'] = admin.adminname
                     session['permission'] = admin.permission
                     return redirect(url_for('admin.index'))
                 else:
@@ -49,6 +50,14 @@ def login():
             return render_template('admin/login_admin.html', error=error)
 
 
+@bp.route('/logout')
+def logout():
+    session.pop('admin_id', None)
+    session.pop('permission', None)
+    session.pop('name', None)
+    return redirect(url_for('admin.index'))
+
+
 @bp.route('/add_admin', methods=['GET', 'POST'])
 def add_admin():
     """
@@ -56,8 +65,15 @@ def add_admin():
     :return:
     """
     # 如果是 GET 请求，则返回添加管理员的页面
+    if 'admin_id' in session:
+        is_logged_in = True
+    else:
+        is_logged_in = False
     if request.method == 'GET':
-        return render_template('admin/add_admin.html')
+        if is_logged_in:
+            return render_template('admin/add_admin.html', is_logged_in=is_logged_in)
+        else:
+            return render_template('admin/index_admin.html', is_logged_in=is_logged_in)
     else:
         # 如果用户权限不足，则返回错误页面
         if session.get('permission') != 0:
@@ -86,11 +102,10 @@ def add_admin():
                             permission = 1
                         case "Observer":
                             permission = 2
-                        case _:
+                        case None:
                             # 如果没有选择管理员权限，则返回错误页面
                             error = 'PermissionError: Please select an administrator privilege level！'
                             return render_template('admin/add_admin.html', error=error)
-
                     # 对密码进行加密处理
                     hash_pwd = generate_password_hash(password)
                     # 创建管理员对象，并将其添加到数据库中
@@ -108,4 +123,8 @@ def add_admin():
 
 @bp.route('/manage_admin', methods=['GET'])
 def manage_admin():
-    return render_template('admin/manage_admin.html')
+    if 'admin_id' in session:
+        is_logged_in = True
+        return render_template('admin/manage_admin.html', is_logged_in=is_logged_in)
+    else:
+        return render_template('admin/login_admin.html')
