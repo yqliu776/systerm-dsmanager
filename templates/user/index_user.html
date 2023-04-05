@@ -5,16 +5,25 @@
     Manage-index
 {% endblock %}
 
-{% block linkcsript %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/index_admin.css') }}">
-{% endblock %}
-
 {% block content %}
-    <div class="index">
-        <a href="{{ url_for('user.login') }}">
-            <h1>
-                index_user --> login_user
-            </h1>
-        </a>
+    {% if is_logged_in == True %}
+    <div id="main-content">
+    <h2>Administrator Home</h2>
+    <div id="login-status"></div>
     </div>
+    {% elif is_logged_in == False %}
+    <div class="text-center">
+        <h2 class="mb-4">Welcome to the User Panel</h2>
+        <p>Access the User panel using your credentials.</p>
+        <a href="{{ url_for('user.login') }}" class="btn btn-primary">Go to Login</a>
+        <p>What, no account? Hurry up and register!</p>
+        <a href="{{ url_for('user.register') }}" class="btn btn-primary">Go to Register</a>
+    </div>
+    {% else %}
+    <div id="main-content">
+    <h2>Error</h2>
+    <div id="login-status"></div>
+
+    </div>
+    {% endif %}
 {% endblock %}

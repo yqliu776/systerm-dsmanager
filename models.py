@@ -62,4 +62,4 @@ class ProductsModel(db.Model):
     """
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    productname = db.Column(db.String(200))
+    product_name = db.Column(db.String(200))

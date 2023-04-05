@@ -1,0 +1,12 @@
+.full-height {
+    height: 100vh;
+}
+.navbar-brand:hover {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.nav-link:hover {
+    background-color: #ffffff;
+    color: #141e3e;
+    cursor: pointer;
+}

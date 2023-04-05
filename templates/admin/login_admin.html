@@ -4,32 +4,28 @@
     Manage-index
 {% endblock %}
 
-{% block linkcsript %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/index_admin.css') }}">
+{% block content %}
+    <div class="login_box">
+        <form method="POST" action="{{ url_for('admin.login') }}" class="bg-light p-4 rounded">
+            <h2 class="text-center mb-4">Login-Admin</h2>
+
+            <div class="mb-3">
+                <label for="adminname" class="form-label">UserName</label>
+                <input type="text" required name="adminname" id="adminname" class="form-control" placeholder="Please enter an administrator account!">
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" required name="password" id="password" class="form-control" placeholder="Please enter the administrator password!">
+            </div>
+
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            <input class="btn btn-primary w-100" type="submit" value="Login">
+        </form>
+    </div>
 {% endblock %}
-
-        {% block content %}
-        <div class="login_box">
-            <form method="POST" action="{{ url_for('admin.login') }}" class="bg-light p-4 rounded">
-                <h2 class="text-center mb-4">Login-Admin</h2>
-
-                <div class="mb-3">
-                    <label for="adminname" class="form-label">UserName</label>
-                    <input type="text" required name="adminname" id="adminname" class="form-control" placeholder="Please enter an administrator account!">
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" required name="password" id="password" class="form-control" placeholder="Please enter the administrator password!">
-                </div>
-
-                {% if error %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ error }}
-                    </div>
-                {% endif %}
-
-                <input class="btn btn-primary w-100" type="submit" value="Login">
-            </form>
-        </div>
-        {% endblock %}

@@ -4,10 +4,6 @@
     Manage-index
 {% endblock %}
 
-{% block linkcsript %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/index_admin.css') }}">
-{% endblock %}
-
 {% block content %}
     {% if is_logged_in == True %}
     <div id="main-content">
