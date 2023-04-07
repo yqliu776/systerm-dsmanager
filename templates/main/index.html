@@ -6,11 +6,99 @@
 {% endblock %}
 
 {% block content %}
-    <div class="index">
-        <a href="{{ url_for('debug.debug') }}">
-            <h1>
-                index-->debug
-            </h1>
-        </a>
-    </div>
+        <div class="row">
+            <!-- 商品分类 -->
+            <div class="col-md-4">
+                <div class="categories mb-4">
+                    <h2>商品分类</h2>
+                    <ul>
+                        <li><a href="#">家用电器</a></li>
+                        <li><a href="#">手机数码</a></li>
+                        <li><a href="#">电脑办公</a></li>
+                        <li><a href="#">家居家纺</a></li>
+                        <li><a href="#">服饰鞋帽</a></li>
+                        <li><a href="#">个护化妆</a></li>
+                        <li><a href="#">食品生鲜</a></li>
+                        <li><a href="#">图书音像</a></li>
+                        <li><a href="#">运动户外</a></li>
+                        <li><a href="#">汽车用品</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 轮播图 -->
+            <div class="col-md-8">
+                <div id="carouselExampleControls" class="carousel slide my-4" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ url_for('static', filename='img/1.jpg') }}" class="d-block w-100" alt="轮播图1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='img/2.jpg') }}" class="d-block w-100" alt="轮播图2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='img/3.jpg') }}" class="d-block w-100" alt="轮播图3">
+                        </div>
+                        <!-- 添加更多轮播图片 -->
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 热门商品 -->
+        <div class="hot-products mb-4">
+            <h2>热门商品</h2>
+            <ul>
+                <li>
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='img/2.jpg') }}" alt="商品1">
+                        <p>商品1名称</p>
+                        <p>商品1价格</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='img/2.jpg') }}" alt="商品2">
+                        <p>商品2名称</p>
+                        <p>商品2价格</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='img/2.jpg') }}" alt="商品3">
+                        <p>商品3名称</p>
+                        <p>商品3价格</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='img/2.jpg') }}" alt="商品4">
+                        <p>商品4名称</p>
+                        <p>商品4价格</p>
+                    </a>
+                </li>
+                <!-- 添加更多热门商品 -->
+            </ul>
+        </div>
+        <!-- 促销活动 -->
+        <div class="promotions mb-4">
+            <h2>促销活动</h2>
+            <ul>
+                <li><a href="#">活动1</a></li>
+                <li><a href="#">活动2</a></li>
+                <li><a href="#">活动3</a></li>
+                <li><a href="#">活动4</a></li>
+                <!-- 添加更多促销活动 -->
+            </ul>
+        </div>
+
+        <a href="{{ url_for('debug.debug') }}">index-->debug</a>
 {% endblock %}

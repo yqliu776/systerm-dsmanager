@@ -1,4 +1,5 @@
 from exts import db
+from datetime import date
 
 
 class AdminModel(db.Model):
@@ -36,19 +37,34 @@ class AdminModel(db.Model):
 class UserModel(db.Model):
     """
     用户 数据表 模型
-    属性：id， name，email, tel, pwd, ······
+    属性：id, username, email, tel, password, browse_history, search_history, purchase_history, click_history, favorite_products, social_media_interaction, cart_data, time_spent_on_products, age, gender, location
     """
     __tablename__ = 'user'
+
+    # 用户id
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(200))
     email = db.Column(db.String(200))
     tel = db.Column(db.String(200))
     password = db.Column(db.String(200))
 
-    def __int__(self, username, email, tel, password):
+    # 用户搜索历史
+    search_history = db.Column(db.String(1000))
+    # 用户购买历史
+    purchase_history = db.Column(db.Text())
+    # 用户收藏的产品
+    favorite_products = db.Column(db.String(1000))
+    # 用户购物车数据
+    cart_data = db.Column(db.String(1000))
+    # 用户年龄
+    age = db.Column(db.Integer)
+    # 用户性别
+    gender = db.Column(db.String(10))
+    # 用户地理位置
+    location = db.Column(db.String(200))
+
+    def __init__(self, username, password):
         self.username = username
-        self.email = email
-        self.tel = tel
         self.password = password
 
     def __repr__(self):

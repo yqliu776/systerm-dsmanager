@@ -1,0 +1,83 @@
+/* CSS */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.content {
+    flex-grow: 1;
+}
+
+nav {
+    width: 100%;
+}
+
+header {
+    margin-left: 30vh;
+    margin-right: 30vh;
+}
+
+.carousel img {
+    width: 100%;
+    height: auto;
+}
+
+.categories ul,
+.hot-products ul,
+.promotions ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    list-style-type: none;
+    padding: 0;
+}
+
+.categories a,
+.hot-products a,
+.promotions a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.hot-products li {
+    flex: 1;
+    max-width: 25%;
+}
+
+.hot-products img {
+    width: 100%;
+    height: auto;
+}
+
+.categories ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.categories li {
+    margin-bottom: 8px;
+}
+
+.categories a {
+    display: block;
+    text-decoration: none;
+    color: #007bff;
+    background-color: #f8f9fa;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.categories a:hover {
+    background-color: #007bff;
+    color: #fff;
+}

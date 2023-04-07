@@ -3,9 +3,6 @@ from exts import db
 from models import AdminModel
 
 
-app.app_context().push()
-
-
 def add_admins():
     """
     创建默认管理员
@@ -23,5 +20,11 @@ def add_admins():
     print(message)
 
 
+def generate_products(products):
+    category_list = ['女装','鞋子', '', '', '', '', '']
+    return 1
+
+
 if __name__ == '__main__':
+    app.app_context().push()
     add_admins()
