@@ -1,0 +1,48 @@
+{% extends 'user/base_user.html' %}
+
+{% block title %}
+    用户注册
+{% endblock %}
+
+{% block content %}
+    <div class="fa-cash-register_box">
+        <form method="POST" action="{{ url_for('user.register') }}" class="bg-light p-4 rounded">
+            <h2 class="text-center mb-4">Register-User</h2>
+
+            <div class="mb-3">
+                <label for="username" class="form-label">请输入用户名。。。</label>
+                <input type="text" required name="username" id="username" class="form-control" placeholder="Please enter an user account!">
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">请输入密码。。。</label>
+                <input type="password" required name="password" id="password" class="form-control" placeholder="Please enter the user password!">
+            </div>
+            <div class="mb-3">
+                <label for="re_password" class="form-label">请再次输入密码。。。</label>
+                <input type="password" required name="re_password" id="password" class="form-control" placeholder="Please enter the user password one more time!">
+            </div>
+
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            <input class="btn btn-primary w-100" type="submit" value="Register">
+        </form>
+    </div>
+    <script>
+      const passwordInput = document.getElementById("password");
+      const rePasswordInput = document.getElementById("re_password");
+      const passwordError = document.getElementById("passwordError");
+
+      rePasswordInput.addEventListener("keyup", () => {
+        if (passwordInput.value !== rePasswordInput.value) {
+          alert("两次密码输入不同，请重新检查输入。");
+        } else {
+          passwordError.textContent = "";
+        }
+      });
+    </script>
+{% endblock %}
